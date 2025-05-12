@@ -7,16 +7,7 @@
         <error-handler ref="apikit-error-handler" />
     </flow>
     <flow name="get:\health:main-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  message: "mule-user-sys is running properly."
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <flow-ref doc:name="health" doc:id="ef9c7449-2176-408e-a7c4-78e9d09a9964" name="health"/>
     </flow>
 	<flow name="put:\users:application\json:main-config">
 		<flow-ref doc:name="put-users-impl" doc:id="ee9b3889-95a1-48da-b175-ac399ad15af4" name="put-users-impl"/>
