@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></mule>
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:xml-module="http://www.mulesoft.org/schema/mule/xml-module"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/xml-module http://www.mulesoft.org/schema/mule/xml-module/current/mule-xml-module.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="post-users" doc:id="a4696809-dcfc-46f4-9602-2369c17f3085" >
+		<file:listener doc:name="CSV" doc:id="138d86cd-b289-48de-b5e2-bbc97000c2f0" config-ref="File_Config" autoDelete="true" outputMimeType="text/plain" outputEncoding="UTF-8">
+			<scheduling-strategy >
+				<fixed-frequency frequency="${file.scheduler}" timeUnit="SECONDS" />
+			</scheduling-strategy>
+		</file:listener>
+		<logger level="INFO" doc:name="Start flow" doc:id="d825a967-441c-4da6-adb3-5314646e1285" message='#["Start flow POST users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+		<ee:transform doc:name="Read CSV" doc:id="0fa536f9-3783-4055-a516-85cf7ae2569d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json encoding="UTF-8"
+---
+read(payload, "application/csv", {
+    header: true,
+    separator: ";"
+})]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="DEBUG" doc:name="Debug full payload" doc:id="35e6ac18-1b94-4587-b7c9-a902a99e6c58" message='#["Debug full payload: " ++ payload.^raw]' />
+		<xml-module:validate-schema doc:name="Users input" doc:id="66e65388-0029-4f38-b723-f24725fab7ab" />
+		<logger level="INFO" doc:name="Schema validated" doc:id="e10b8450-bcdb-4fdb-9d33-964efe016c12" message='#["JSON Schema has been validated."]'/>
+		<foreach doc:name="For Each" doc:id="ab7f025c-ea44-43fc-92c8-d9e1001994e2" collection="#[payload default []]">
+			<logger level="DEBUG" doc:name="Debug payload before request" doc:id="3d81c533-3ad7-4596-b7c2-c2cdf3c04c18" message='#["Debug payload before request: " ++ payload.^raw]' />
+			<http:request method="POST" doc:name="POST /users" doc:id="3904382d-6be2-4191-bebe-695d70f328f4" config-ref="HTTP_Request_configuration_mule-user-sys" path="/users" target="sysResponse"/>
+			<logger level="INFO" doc:name="Users created" doc:id="a66c6d87-a61d-4e2b-b15a-d7ddfb7550af" message='#["User with email: " ++ payload.email ++ " has been created successfully."]'/>
+		</foreach>
+		<logger level="INFO" doc:name="End flow" doc:id="cbd0d21a-e89c-42e7-ba13-8387a5f36af5" message='#["Start flow POST users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+	</flow>
+</mule>
