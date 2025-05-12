@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
     <apikit:config name="main-config" api="main.raml" outboundHeadersMapName="outboundHeadersMapName" httpStatusVarName="httpStatus" />
 	<configuration-properties doc:name="Configuration properties" doc:id="7ecfbf97-0cb0-4262-bf11-a0479d7ef670" file="config/${mule.env}-properties.yaml" />
 	<global-property doc:name="Global Property" doc:id="1fe4fdb7-0822-4594-a7b4-17c32ae91102" name="mule.env" value="dev" />
-	<http:request-config name="HTTP_Request_configuration_mule-user-sys" doc:name="HTTP Request configuration" doc:id="6653fcaf-ce25-4b3b-94c9-3ba6f5b60d28" basePath="${mule-user-sys.basePath}" >
+	<http:request-config name="HTTP_Request_configuration_mule-user-sys" doc:name="HTTP Request configuration" doc:id="6653fcaf-ce25-4b3b-94c9-3ba6f5b60d28" basePath="${mule-user-sys.basePath}" responseTimeout="${mule-user-sys.timeout}">
 		<http:request-connection host="${mule-user-sys.host}" port="${mule-user-sys.port}" protocol="${mule-user-sys.protocol}"/>
 	</http:request-config>
 </mule>

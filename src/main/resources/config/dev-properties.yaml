@@ -3,3 +3,4 @@ mule-user-sys:
   host: "localhost"
   port: "8082"
   basePath: "/api"
+  timeout: "600000"
