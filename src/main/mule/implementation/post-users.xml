@@ -14,6 +14,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 				<fixed-frequency frequency="${file.scheduler}" timeUnit="SECONDS" />
 			</scheduling-strategy>
 		</file:listener>
+		<flow-ref doc:name="init-vars" doc:id="55438d89-3aa3-4dce-b609-3e477240de52" name="init-vars"/>
 		<logger level="INFO" doc:name="Start flow" doc:id="d825a967-441c-4da6-adb3-5314646e1285" message='#["Start flow POST users with correlationId: " ++ (vars.correlationId default "N/A")]' />
 		<ee:transform doc:name="Read CSV" doc:id="0fa536f9-3783-4055-a516-85cf7ae2569d" >
 			<ee:message >
@@ -28,11 +29,15 @@ read(payload, "application/csv", {
 		</ee:transform>
 		<logger level="DEBUG" doc:name="Debug full payload" doc:id="35e6ac18-1b94-4587-b7c9-a902a99e6c58" message='#["Debug full payload: " ++ payload.^raw]' />
 		<json:validate-schema doc:name="Users" doc:id="6529a886-1b50-4709-8698-27b5fd806e0a" schema='#["schemas/post-users-input.json"]' allowDuplicateKeys="false"/>
-		<logger level="INFO" doc:name="Schema validated" doc:id="e10b8450-bcdb-4fdb-9d33-964efe016c12" message='#["JSON Schema has been validated."]'/>
+		<logger level="INFO" doc:name="Schema validated" doc:id="e10b8450-bcdb-4fdb-9d33-964efe016c12" message='#["JSON Schema has been validated."]' />
+		<flow-ref doc:name="create-users" doc:id="7c0b2ad0-cf58-4e01-934f-a3fbf92882f6" name="create-users"/>
+		<logger level="INFO" doc:name="End flow" doc:id="cbd0d21a-e89c-42e7-ba13-8387a5f36af5" message='#["Start flow POST users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+	</flow>
+	<sub-flow name="create-users" doc:id="b627be1b-9e4d-49d9-98a2-cc6376a65c84" >
 		<foreach doc:name="For Each" doc:id="ab7f025c-ea44-43fc-92c8-d9e1001994e2" collection="#[payload default []]">
-			<ee:transform doc:name="Set object for sys" doc:id="dcd8b9b3-26ce-4607-8f2d-8d0fadc237ee" >
-				<ee:message >
-					<ee:set-payload ><![CDATA[%dw 2.0
+			<ee:transform doc:name="Set object for sys" doc:id="dcd8b9b3-26ce-4607-8f2d-8d0fadc237ee">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
 output application/json skipNullOn="everywhere"
 ---
 {
@@ -44,9 +49,8 @@ output application/json skipNullOn="everywhere"
 				</ee:message>
 			</ee:transform>
 			<logger level="DEBUG" doc:name="Debug payload before request" doc:id="3d81c533-3ad7-4596-b7c2-c2cdf3c04c18" message='#["Debug payload before request: " ++ payload.^raw]' />
-			<http:request method="POST" doc:name="POST /users" doc:id="3904382d-6be2-4191-bebe-695d70f328f4" config-ref="HTTP_Request_configuration_mule-user-sys" path="/users" target="sysResponse"/>
-			<logger level="INFO" doc:name="Users created" doc:id="a66c6d87-a61d-4e2b-b15a-d7ddfb7550af" message='#["User with email: " ++ payload.email ++ " has been created successfully."]'/>
+			<http:request method="POST" doc:name="POST /users" doc:id="3904382d-6be2-4191-bebe-695d70f328f4" config-ref="HTTP_Request_configuration_mule-user-sys" path="/users" target="sysResponse" />
+			<logger level="INFO" doc:name="User created" doc:id="a66c6d87-a61d-4e2b-b15a-d7ddfb7550af" message='#["New user has been created successfully."]' />
 		</foreach>
-		<logger level="INFO" doc:name="End flow" doc:id="cbd0d21a-e89c-42e7-ba13-8387a5f36af5" message='#["Start flow POST users with correlationId: " ++ (vars.correlationId default "N/A")]' />
-	</flow>
+	</sub-flow>
 </mule>
