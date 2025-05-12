@@ -42,20 +42,6 @@ uses:
           application/json:
             type: object
             example: !include examples/user-output-example.json
-            
-  post:
-    description: Create a new user
-    body:
-      application/json:
-        type: user.newUser
-    responses:
-      201:
-        body:
-          application/json:
-            type: object
-            example: {
-              "message": "successful"
-            }
 
   put:
     description: Update an existing user by ID

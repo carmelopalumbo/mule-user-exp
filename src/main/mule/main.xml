@@ -7,38 +7,26 @@
         <error-handler ref="apikit-error-handler" />
     </flow>
     <flow name="get:\health:main-config">
-        <flow-ref doc:name="health" doc:id="ef9c7449-2176-408e-a7c4-78e9d09a9964" name="health"/>
+        <flow-ref doc:name="health" doc:id="ef9c7449-2176-408e-a7c4-78e9d09a9964" name="health" />
     </flow>
-	<flow name="put:\users:application\json:main-config">
-		<flow-ref doc:name="put-users-impl" doc:id="ee9b3889-95a1-48da-b175-ac399ad15af4" name="put-users-impl"/>
+    <flow name="put:\users:application\json:main-config">
+        <flow-ref doc:name="put-users-impl" doc:id="ee9b3889-95a1-48da-b175-ac399ad15af4" name="put-users-impl" />
     </flow>
-	<flow name="delete:\users\(userId):main-config">
-		<ee:transform doc:name="Transform Message">
+    <flow name="delete:\users\(userId):main-config">
+        <ee:transform doc:name="Transform Message">
             <ee:variables>
                 <ee:set-variable variableName="userId">attributes.uriParams.'userId'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<logger level="INFO" message="delete:\users\(userId):main-config" />
+        <logger level="INFO" message="delete:\users\(userId):main-config" />
     </flow>
-	<flow name="patch:\users:application\json:main-config">
-		<flow-ref doc:name="patch-users-impl" doc:id="85d1cfbf-c0b8-4151-a92d-bf2553009153" name="patch-users-impl"/>
+    <flow name="patch:\users:application\json:main-config">
+        <flow-ref doc:name="patch-users-impl" doc:id="85d1cfbf-c0b8-4151-a92d-bf2553009153" name="patch-users-impl" />
     </flow>
     <flow name="get:\users:main-config">
-		<flow-ref doc:name="get-users-impl" doc:id="a8e6e14c-e01d-46cb-831f-5e6bbe131a6c" name="get-users-impl"/>
+        <flow-ref doc:name="get-users-impl" doc:id="a8e6e14c-e01d-46cb-831f-5e6bbe131a6c" name="get-users-impl" />
     </flow>
     <flow name="get:\users\(userId):main-config">
-		<flow-ref doc:name="get-users-by-id-impl" doc:id="ab988223-c6a6-464e-8bfa-71bd4d6bdb56" name="get-users-by-id-impl"/>
-    </flow>
-    <flow name="post:\users:application\json:main-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  message: "successful"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <flow-ref doc:name="get-users-by-id-impl" doc:id="ab988223-c6a6-464e-8bfa-71bd4d6bdb56" name="get-users-by-id-impl" />
     </flow>
 </mule>
