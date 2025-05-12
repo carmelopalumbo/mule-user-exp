@@ -51,19 +51,7 @@ output application/json
         </ee:transform>
     </flow>
     <flow name="get:\users:main-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  firstName: "Mario",
-  lastName: "Rossi",
-  email: "mario@example.com",
-  address: "Via Verdi 2, Milano"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+		<flow-ref doc:name="get-users-impl" doc:id="a8e6e14c-e01d-46cb-831f-5e6bbe131a6c" name="get-users-impl"/>
     </flow>
     <flow name="get:\users\(userId):main-config">
         <ee:transform doc:name="Transform Message">

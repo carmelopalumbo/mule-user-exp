@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="get-users-impl" doc:id="9433e3d1-83c7-472e-8e82-fbeb745ae3c0" >
+		<logger level="INFO" doc:name="Start flow" doc:id="d0c8dadc-65fb-4f5c-b96c-90572d508631" message='#["Start flow GET users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+		<http:request method="GET" doc:name="Request" doc:id="2b1b13f8-f75e-4503-a32e-364cfe8e95d2" config-ref="HTTP_Request_configuration_mule-user-sys" path="/users"/>
+		<logger level="DEBUG" doc:name="Debug payload after request" doc:id="066290d6-d8ea-4050-81b7-c7065933821d" message='#["Debug payload after request: " ++ payload.^raw]'/>
+		<logger level="INFO" doc:name="End flow" doc:id="8ffc49eb-7cb6-4311-8cc5-505d53c1121c" message='#["Start flow GET users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+	</sub-flow>
+</mule>
