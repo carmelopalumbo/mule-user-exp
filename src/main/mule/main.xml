@@ -31,12 +31,12 @@ output application/json
         </ee:transform>
     </flow>
 	<flow name="delete:\users\(userId):main-config">
-        <ee:transform doc:name="Transform Message">
+		<ee:transform doc:name="Transform Message">
             <ee:variables>
                 <ee:set-variable variableName="userId">attributes.uriParams.'userId'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <logger level="INFO" message="delete:\users\(userId):main-config" />
+		<logger level="INFO" message="delete:\users\(userId):main-config" />
     </flow>
 	<flow name="patch:\users:application\json:main-config">
         <ee:transform doc:name="Transform Message">
@@ -54,24 +54,7 @@ output application/json
 		<flow-ref doc:name="get-users-impl" doc:id="a8e6e14c-e01d-46cb-831f-5e6bbe131a6c" name="get-users-impl"/>
     </flow>
     <flow name="get:\users\(userId):main-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:variables>
-                <ee:set-variable variableName="userId">attributes.uriParams.'userId'</ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  firstName: "Mario",
-  lastName: "Rossi",
-  email: "mario@example.com",
-  address: "Via Verdi 2, Milano"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+		<flow-ref doc:name="get-users-by-id-impl" doc:id="ab988223-c6a6-464e-8bfa-71bd4d6bdb56" name="get-users-by-id-impl"/>
     </flow>
     <flow name="post:\users:application\json:main-config">
         <ee:transform doc:name="Transform Message">
