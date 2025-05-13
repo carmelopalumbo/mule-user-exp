@@ -1,6 +1,6 @@
-db:
+mule-user-sys:
+  protocol: "HTTP"
   host: "localhost"
-  name: "users_db"
-  port: "3306"
-  user: "admin"
-  password: "admin"
+  port: "8082"
+  basePath: "/api"
+  timeout: "600000"

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mycompany</groupId>
@@ -8,6 +10,8 @@
 	<packaging>mule-application</packaging>
 
 	<name>mule-user-exp</name>
+	<description>Experience API for user management. Exposes REST endpoints for CRUD operations and routes requests to the System API, applying validations, transformations, and orchestration logic.</description>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -49,6 +53,12 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-json-module</artifactId>
+			<version>2.5.3</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
 			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-sockets-connector</artifactId>
 			<version>1.2.5</version>
@@ -69,6 +79,12 @@
 			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-db-connector</artifactId>
 			<version>1.14.15</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-file-connector</artifactId>
+			<version>1.5.3</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
