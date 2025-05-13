@@ -7,8 +7,8 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<sub-flow name="patch-users-impl" doc:id="7142c922-7416-45e4-85b6-ca13ba2895b1" >
 		<logger level="INFO" doc:name="Start flow" doc:id="ced3d540-1e33-4dfa-b4b7-7591e6238ca4" message='#["Start flow PATCH users with correlationId: " ++ (vars.correlationId default "N/A")]' />
-		<logger level="DEBUG" doc:name="Debug payload after request" doc:id="a3326228-a98a-4009-98b1-d53dc70d6cb1" message='#["Debug payload before request: " ++ payload.^raw]' />
-		<http:request method="PATCH" doc:name="PATCH /users" doc:id="9fae0451-334a-4a03-b502-a220e6ff8c16" config-ref="HTTP_Request_configuration_mule-user-sys" path="/users" target="sysResponse" >
+		<logger level="DEBUG" doc:name="Debug payload before request" doc:id="a3326228-a98a-4009-98b1-d53dc70d6cb1" message='#["Debug payload before request: " ++ payload.^raw]' />
+		<http:request method="PATCH" doc:name="PATCH /users" doc:id="9fae0451-334a-4a03-b502-a220e6ff8c16" config-ref="HTTP_Request_configuration_mule-user-sys" path="/users">
 			<http:query-params ><![CDATA[#[output application/java
 ---
 {
@@ -16,17 +16,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	lastName: attributes.queryParams.lastName default ""
 }]]]></http:query-params>
 		</http:request>
-		<ee:transform doc:name="Set payload user updated" doc:id="b7c893f7-adb2-4905-b4ed-f0da7d378ca1" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-	"message": "User with ID: " ++ payload.id ++ " has been updated successfully."
-}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-		<logger level="INFO" doc:name="User updated" doc:id="28681fa7-1a24-4b0d-8107-97631c68ebb5" message="#[payload]" />
+		<logger level="DEBUG" doc:name="Debug payload after request" doc:id="14635d78-ea46-4605-bf6a-39838e811b77" message='#["Debug payload after request: " ++ payload.^raw]' />
 		<logger level="INFO" doc:name="End flow" doc:id="e56fa516-315b-4f16-9437-854b4d465606" message='#["Start flow PATCH users with correlationId: " ++ (vars.correlationId default "N/A")]' />
 	</sub-flow>
 </mule>

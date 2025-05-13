@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></mule>
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="delete-users-impl" doc:id="0075dca2-c9a0-4f7b-81d1-ff06e00ffd20" >
+		<logger level="INFO" doc:name="Start flow" doc:id="cb133c09-8cc6-4437-b96b-69dcd986ce8d" message='#["Start flow PUT users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+		<http:request method="DELETE" doc:name="DELETE /users" doc:id="21ba4a49-13c0-43e3-8398-511bd641b759" config-ref="HTTP_Request_configuration_mule-user-sys" path="/users/{userId}" target="sysResponse">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	userId : attributes.uriParams.userId
+}]]]></http:uri-params>
+			<http:query-params><![CDATA[#[output application/java
+---
+{
+	firstName : attributes.queryParams.firstName default "",
+	lastName: attributes.queryParams.lastName default ""
+}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="End flow" doc:id="e03c4cf8-ed57-4507-949c-ff9fc9d46f65" message='#["Start flow PUT users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+	</sub-flow>
+</mule>

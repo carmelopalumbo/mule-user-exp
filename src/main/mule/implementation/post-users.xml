@@ -43,8 +43,8 @@ output application/json skipNullOn="everywhere"
 {
 	"firstName": payload.nome,
 	"lastName": payload.cognome,
-	"mail": payload.email,
-	"indirizzo": payload.address
+	"email": payload.mail,
+	"address": payload.indirizzo
 }]]></ee:set-payload>
 				</ee:message>
 			</ee:transform>

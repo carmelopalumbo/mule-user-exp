@@ -28,20 +28,6 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 }]]]></http:uri-params>
 		</http:request>
 		<logger level="DEBUG" doc:name="Debug payload after request" doc:id="6f28671f-65d4-4de6-85bf-36009efadd2e" message='#["Debug payload after request: " ++ payload.^raw]' />
-		<choice doc:name="Check payload" doc:id="c62c953b-315c-4270-a282-3557ce60f963" >
-			<when expression="#[isEmpty(payload)]">
-				<ee:transform doc:name="Set payload not found" doc:id="0fc8bcfb-cf32-475b-99b4-b7a6630eaef9">
-					<ee:message>
-						<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-	"message": "User with this ID doesn't exist."
-}]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
-			</when>
-		</choice>
 		<logger level="INFO" doc:name="End flow" doc:id="f5c0ef35-d012-4cd0-87db-c490faed6f3e" message='#["Start flow GET users by id with correlationId: " ++ (vars.correlationId default "N/A")]' />
 	</sub-flow>
 </mule>

@@ -7,8 +7,8 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<sub-flow name="put-users-impl" doc:id="3443a54b-538e-4774-9c56-5503a991538e" >
 		<logger level="INFO" doc:name="Start flow" doc:id="0a1e037a-9c13-421d-b75f-0490dbf4b597" message='#["Start flow PUT users with correlationId: " ++ (vars.correlationId default "N/A")]' />
-		<logger level="DEBUG" doc:name="Debug payload after request" doc:id="67104148-27fc-4d6e-a999-e96c1697bdf1" message='#["Debug payload before request: " ++ payload.^raw]' />
-		<http:request method="PUT" doc:name="PUT /users" doc:id="e2f1e3b2-f096-423e-ae29-763806fdc0c8" config-ref="HTTP_Request_configuration_mule-user-sys" path="/users" target="sysResponse">
+		<logger level="DEBUG" doc:name="Debug payload before request" doc:id="67104148-27fc-4d6e-a999-e96c1697bdf1" message='#["Debug payload before request: " ++ payload.^raw]' />
+		<http:request method="PUT" doc:name="PUT /users" doc:id="e2f1e3b2-f096-423e-ae29-763806fdc0c8" config-ref="HTTP_Request_configuration_mule-user-sys" path="/users">
 			<http:query-params><![CDATA[#[output application/java
 ---
 {
@@ -16,17 +16,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	lastName: attributes.queryParams.lastName default ""
 }]]]></http:query-params>
 		</http:request>
-		<ee:transform doc:name="Set payload user updated" doc:id="40d55049-1e73-4d7e-b614-848920e6325b">
-			<ee:message>
-				<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-	"message": "User with ID: " ++ payload.id ++ " has been updated successfully."
-}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-		<logger level="INFO" doc:name="User updated" doc:id="afd52835-4f2a-433d-b267-4d566739e05d" message='#[payload]'/>
+		<logger level="DEBUG" doc:name="Debug payload after request" doc:id="5093c2e0-edd5-4e2c-bd35-92bd5c50ef79" message='#["Debug payload after request: " ++ payload.^raw]' />
 		<logger level="INFO" doc:name="End flow" doc:id="349ccb38-47b1-42be-bc06-bf4dd6a0f24d" message='#["Start flow PUT users with correlationId: " ++ (vars.correlationId default "N/A")]' />
 	</sub-flow>
 </mule>
