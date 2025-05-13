@@ -13,6 +13,6 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 		<http:request-connection host="${mule-user-sys.host}" port="${mule-user-sys.port}" protocol="${mule-user-sys.protocol}"/>
 	</http:request-config>
 	<file:config name="File_Config" doc:name="File Config" doc:id="72aa5d09-325d-4f77-9399-4588b23ac7ec" >
-		<file:connection workingDir="C:\Users\carme\Documents\muleUsers" />
+		<file:connection workingDir="${file.path}" />
 	</file:config>
 </mule>

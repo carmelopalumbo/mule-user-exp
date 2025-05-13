@@ -6,3 +6,4 @@ untilSuccessful:
   
 file:
   scheduler: "10"
+  path: "C:/Users/carme/Documents/muleUsers"
