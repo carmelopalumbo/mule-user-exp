@@ -17,6 +17,6 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 }]]]></http:query-params>
 		</http:request>
 		<logger level="DEBUG" doc:name="Debug payload after request" doc:id="14635d78-ea46-4605-bf6a-39838e811b77" message='#["Debug payload after request: " ++ payload.^raw]' />
-		<logger level="INFO" doc:name="End flow" doc:id="e56fa516-315b-4f16-9437-854b4d465606" message='#["Start flow PATCH users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+		<logger level="INFO" doc:name="End flow" doc:id="e56fa516-315b-4f16-9437-854b4d465606" message='#["End flow PATCH users with correlationId: " ++ (vars.correlationId default "N/A")]' />
 	</sub-flow>
 </mule>
