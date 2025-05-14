@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 }]]]></http:query-params>
 		</http:request>
 		<logger level="DEBUG" doc:name="Debug payload after request" doc:id="066290d6-d8ea-4050-81b7-c7065933821d" message='#["Debug payload after request: " ++ payload.^raw]'/>
-		<logger level="INFO" doc:name="End flow" doc:id="8ffc49eb-7cb6-4311-8cc5-505d53c1121c" message='#["Start flow GET users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+		<logger level="INFO" doc:name="End flow" doc:id="8ffc49eb-7cb6-4311-8cc5-505d53c1121c" message='#["End flow GET users with correlationId: " ++ (vars.correlationId default "N/A")]' />
 	</sub-flow>
 	<sub-flow name="get-users-by-id-impl" doc:id="47c8bc45-5e11-4012-88d4-0e2ad507e33e" >
 		<logger level="INFO" doc:name="Start flow" doc:id="edfcb76b-2607-4f9c-ad50-84d7f8d8de9a" message='#["Start flow GET users by id with correlationId: " ++ (vars.correlationId default "N/A")]' />
@@ -28,6 +28,6 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 }]]]></http:uri-params>
 		</http:request>
 		<logger level="DEBUG" doc:name="Debug payload after request" doc:id="6f28671f-65d4-4de6-85bf-36009efadd2e" message='#["Debug payload after request: " ++ payload.^raw]' />
-		<logger level="INFO" doc:name="End flow" doc:id="f5c0ef35-d012-4cd0-87db-c490faed6f3e" message='#["Start flow GET users by id with correlationId: " ++ (vars.correlationId default "N/A")]' />
+		<logger level="INFO" doc:name="End flow" doc:id="f5c0ef35-d012-4cd0-87db-c490faed6f3e" message='#["End flow GET users by id with correlationId: " ++ (vars.correlationId default "N/A")]' />
 	</sub-flow>
 </mule>

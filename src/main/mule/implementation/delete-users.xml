@@ -20,6 +20,6 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	lastName: attributes.queryParams.lastName default ""
 }]]]></http:query-params>
 		</http:request>
-		<logger level="INFO" doc:name="End flow" doc:id="e03c4cf8-ed57-4507-949c-ff9fc9d46f65" message='#["Start flow PUT users with correlationId: " ++ (vars.correlationId default "N/A")]' />
+		<logger level="INFO" doc:name="End flow" doc:id="e03c4cf8-ed57-4507-949c-ff9fc9d46f65" message='#["End flow PUT users with correlationId: " ++ (vars.correlationId default "N/A")]' />
 	</sub-flow>
 </mule>
